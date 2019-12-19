@@ -57,7 +57,7 @@
                                                 </ul>
                                             </div>
                                             <div class="toys single-item hvr-outline-out">
-                                                <button type="submit" class="toys-cart ptoys-cart">
+                                                <button type="submit" class="toys-cart ptoys-cart" @click="addToCart(product.id)">
                                                     <i class="fas fa-cart-plus"></i>
                                                 </button>
                                             </div>
@@ -118,29 +118,52 @@
         data() {
             return {
                 products: [],
+                cart:[]
             }
         },
+        /*computed:{
+            carts(){
+                axios.get("api/cart").then(
+                    return this.products = data.data
+                )
+            }
+        },*/
+
         methods:{
             load(){
                 axios.get("api/products").then(
                     (data) => (this.products = data.data.data)
                 );
             },
+            loadCart(){
+                axios.get("api/cart").then(
+                    (data) => (this.cart = data.data)
+                );
+            },
+            addToCart(id){
+                axios.post("api/cart",{'id':id})
+                .then(
+                    (data) => {
+                        this.loadCart();
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Product added to cart successfully'
+                        })
+                    }
+                )
+            }
         },
         created(){
             this.$Progress.start();
             this.load();
+            this.loadCart();
+
             /*Swal.fire({
                 title: 'Success!',
                 text: 'Do you want to continue',
                 icon: 'success',
                 confirmButtonText: 'Cool'
-            });
-            toast.fire({
-                icon: 'success',
-                title: 'Signed in successfully'
-            });
-            console.log(this.products);*/
+            });*/
             this.$Progress.finish()
         }
 

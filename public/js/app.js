@@ -1988,9 +1988,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      products: []
+      products: [],
+      cart: []
     };
   },
+
+  /*computed:{
+      carts(){
+          axios.get("api/cart").then(
+              return this.products = data.data
+          )
+      }
+  },*/
   methods: {
     load: function load() {
       var _this = this;
@@ -1998,22 +2007,39 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("api/products").then(function (data) {
         return _this.products = data.data.data;
       });
+    },
+    loadCart: function loadCart() {
+      var _this2 = this;
+
+      axios.get("api/cart").then(function (data) {
+        return _this2.cart = data.data;
+      });
+    },
+    addToCart: function addToCart(id) {
+      var _this3 = this;
+
+      axios.post("api/cart", {
+        'id': id
+      }).then(function (data) {
+        _this3.loadCart();
+
+        toast.fire({
+          icon: 'success',
+          title: 'Product added to cart successfully'
+        });
+      });
     }
   },
   created: function created() {
     this.$Progress.start();
     this.load();
+    this.loadCart();
     /*Swal.fire({
         title: 'Success!',
         text: 'Do you want to continue',
         icon: 'success',
         confirmButtonText: 'Cool'
-    });
-    toast.fire({
-        icon: 'success',
-        title: 'Signed in successfully'
-    });
-    console.log(this.products);*/
+    });*/
 
     this.$Progress.finish();
   }
@@ -40573,7 +40599,32 @@ var render = function() {
                                 _vm._m(1, true)
                               ]),
                               _vm._v(" "),
-                              _vm._m(2, true)
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "toys single-item hvr-outline-out"
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "toys-cart ptoys-cart",
+                                      attrs: { type: "submit" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.addToCart(product.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-cart-plus"
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "clearfix" })
@@ -40587,7 +40638,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(3)
+            _vm._m(2)
           ])
         ]
       )
@@ -40655,18 +40706,6 @@ var staticRenderFns = [
           _c("i", { staticClass: "far fa-star-half-o" })
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "toys single-item hvr-outline-out" }, [
-      _c(
-        "button",
-        { staticClass: "toys-cart ptoys-cart", attrs: { type: "submit" } },
-        [_c("i", { staticClass: "fas fa-cart-plus" })]
-      )
     ])
   },
   function() {
@@ -56198,8 +56237,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\onlineShop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\onlineShop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/mahbub/Learning/Vue/online_shop/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/mahbub/Learning/Vue/online_shop/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
