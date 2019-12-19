@@ -25,7 +25,7 @@
                                                         <a href="single.html">{{product.name.slice(0,20)+'...'}}</a>
                                                     </h4>
                                                     <div class="grid-price mt-2">
-                                                        <span class="money ">TK.{{product.total_price}}</span>
+                                                        <span class="money ">TK.{{product.selling_price}}</span>
                                                     </div>
                                                 </div>
                                                 <ul class="stars">
@@ -70,39 +70,29 @@
                     </div>
                 </div>
 
-                <div class="right-ads-display col-lg-3 product-toys-info">
+                <div class="right-ads-display col-lg-3 product-toys-info" style="padding:0px !important;overflow:hidden">
                     <div class="d-flex border-bottom-1">
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
                                 <th scope="col">Product</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Total</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="text-center border-bottom">
-                                <th>Apple</th>
-                                <th contenteditable="true">2</th>
-                                <th>Tk.50</th>
-                                <th><button class="text-danger">x</button></th>
+                            <tr v-if="cartItems.length == 0" class="text-center border-bottom">
+                                <th colspan="4">Your Cart is Empty</th>
+                            </tr>
+                            <tr class="text-center border-bottom" v-for="cart in cartItems">
+                                <th>{{cart.name.slice(0,10)}}</th>
+                                <th>{{cart.qty}}</th>
+                                <th>Tk.{{cart.subtotal}}</th>
+                                <th><button class="text-danger" @click="removeFromCart(cart.rowId)">x</button></th>
                             </tr>
                             </tbody>
                         </table>
-
-
-                        <!--<div class="product-cart-info">
-                            <img src="images/a2.jpg" width="50px" alt="">
-                            <p>Mango Jos</p>
-                        </div>
-                        <div class="">
-                            <h6>Price</h6>
-                            <p>Tk. 250</p>
-                        </div>
-                        <div class="">
-                            <li class="fa fa-trash"></li>
-                        </div>-->
                     </div>
                 </div>
             </div>
@@ -118,7 +108,7 @@
         data() {
             return {
                 products: [],
-                cart:[]
+                cartItems:[]
             }
         },
         /*computed:{
@@ -136,12 +126,13 @@
                 );
             },
             loadCart(){
-                axios.get("api/cart").then(
-                    (data) => (this.cart = data.data)
+                axios.get("cart").then(
+                    (data) => (this.cartItems = data.data.data)
                 );
             },
             addToCart(id){
-                axios.post("api/cart",{'id':id})
+                this.$Progress.start();
+                axios.post("cart",{'id':id})
                 .then(
                     (data) => {
                         this.loadCart();
@@ -150,7 +141,32 @@
                             title: 'Product added to cart successfully'
                         })
                     }
+                );
+                this.$Progress.finish();
+            },
+            updateCart(rowId){
+                axios.post("cart/"+rowId,{'id':id})
+                .then(
+                    (data) => {
+                        this.loadCart();
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Product qty updated successfully'
+                        })
+                    }
                 )
+            },
+            removeFromCart(rowId){
+                axios.delete("cart/"+rowId)
+                    .then(
+                        (data) => {
+                            this.loadCart();
+                            toast.fire({
+                                icon: 'success',
+                                title: 'Product removed from cart successfully'
+                            })
+                        }
+                    )
             }
         },
         created(){

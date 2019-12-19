@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Resources\Product\ProductCollection;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -19,10 +18,9 @@ class CartController extends Controller
     public function index()
     {
         $cart = Cart::content();
-        $data = json_encode($cart);
 
         return response([
-            'data' => $data
+            'data' => $cart
         ], Response::HTTP_OK);
     }
 
@@ -36,16 +34,8 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $product = Product::where('id',$request->get('id'))->first();
-        $cart = Cart::add($product->id,$product->name,1,(int)$product->selling_price);
-        $data = json_encode($cart);
-        return response([
-            'data' => $data
-        ], Response::HTTP_CREATED);
-    }
-
-    public function getCart()
-    {
-        return Cart::content();
+        Cart::add($product->id,$product->name,1,(int)$product->selling_price);
+        return response(null, Response::HTTP_CREATED);
     }
 
     /**
@@ -63,29 +53,24 @@ class CartController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $rowId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $rowId)
     {
-        $cart = Cart::update($request->get('id'), array(
-            'quantity' => $request->get('qty'), // so if the current product has a quantity of 4, another 2 will be added so this will result to 6
-        ));
-        $data = json_encode($cart);
-        return response([
-            'data' => $data
-        ], Response::HTTP_CREATED);
+        Cart::update($rowId, $request->get('qty'));
+        return response(null, Response::HTTP_CREATED);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $rowId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($rowId)
     {
-        Cart::remove($id);
+        Cart::remove($rowId);
         return response(null,Response::HTTP_OK);
 
     }

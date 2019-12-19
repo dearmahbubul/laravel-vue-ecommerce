@@ -1973,23 +1973,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {//console.log('mounted');
   },
   data: function data() {
     return {
       products: [],
-      cart: []
+      cartItems: []
     };
   },
 
@@ -2011,14 +2001,15 @@ __webpack_require__.r(__webpack_exports__);
     loadCart: function loadCart() {
       var _this2 = this;
 
-      axios.get("api/cart").then(function (data) {
-        return _this2.cart = data.data;
+      axios.get("cart").then(function (data) {
+        return _this2.cartItems = data.data.data;
       });
     },
     addToCart: function addToCart(id) {
       var _this3 = this;
 
-      axios.post("api/cart", {
+      this.$Progress.start();
+      axios.post("cart", {
         'id': id
       }).then(function (data) {
         _this3.loadCart();
@@ -2026,6 +2017,33 @@ __webpack_require__.r(__webpack_exports__);
         toast.fire({
           icon: 'success',
           title: 'Product added to cart successfully'
+        });
+      });
+      this.$Progress.finish();
+    },
+    updateCart: function updateCart(rowId) {
+      var _this4 = this;
+
+      axios.post("cart/" + rowId, {
+        'id': id
+      }).then(function (data) {
+        _this4.loadCart();
+
+        toast.fire({
+          icon: 'success',
+          title: 'Product qty updated successfully'
+        });
+      });
+    },
+    removeFromCart: function removeFromCart(rowId) {
+      var _this5 = this;
+
+      axios["delete"]("cart/" + rowId).then(function (data) {
+        _this5.loadCart();
+
+        toast.fire({
+          icon: 'success',
+          title: 'Product removed from cart successfully'
         });
       });
     }
@@ -40589,7 +40607,7 @@ var render = function() {
                                     [
                                       _c("span", { staticClass: "money " }, [
                                         _vm._v(
-                                          "TK." + _vm._s(product.total_price)
+                                          "TK." + _vm._s(product.selling_price)
                                         )
                                       ])
                                     ]
@@ -40638,7 +40656,69 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(2)
+            _c(
+              "div",
+              {
+                staticClass: "right-ads-display col-lg-3 product-toys-info",
+                staticStyle: { padding: "0px !important", overflow: "hidden" }
+              },
+              [
+                _c("div", { staticClass: "d-flex border-bottom-1" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      [
+                        _vm.cartItems.length == 0
+                          ? _c(
+                              "tr",
+                              { staticClass: "text-center border-bottom" },
+                              [
+                                _c("th", { attrs: { colspan: "4" } }, [
+                                  _vm._v("Your Cart is Empty")
+                                ])
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._l(_vm.cartItems, function(cart) {
+                          return _c(
+                            "tr",
+                            { staticClass: "text-center border-bottom" },
+                            [
+                              _c("th", [
+                                _vm._v(_vm._s(cart.name.slice(0, 10)))
+                              ]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v(_vm._s(cart.qty))]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Tk." + _vm._s(cart.subtotal))]),
+                              _vm._v(" "),
+                              _c("th", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "text-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.removeFromCart(cart.rowId)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("x")]
+                                )
+                              ])
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ])
+              ]
+            )
           ])
         ]
       )
@@ -40712,41 +40792,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "right-ads-display col-lg-3 product-toys-info" },
-      [
-        _c("div", { staticClass: "d-flex border-bottom-1" }, [
-          _c("table", { staticClass: "table" }, [
-            _c("thead", { staticClass: "thead-light" }, [
-              _c("tr", [
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Product")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Quantity")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Price")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", { staticClass: "text-center border-bottom" }, [
-                _c("th", [_vm._v("Apple")]),
-                _vm._v(" "),
-                _c("th", { attrs: { contenteditable: "true" } }, [_vm._v("2")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Tk.50")]),
-                _vm._v(" "),
-                _c("th", [
-                  _c("button", { staticClass: "text-danger" }, [_vm._v("x")])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Product")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
+      ])
+    ])
   }
 ]
 render._withStripped = true

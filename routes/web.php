@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('master');
 });
+/*Route::post('/add', 'CartController@store');
+Route::get('/show', 'CartController@index');*/
+Route::resource('/cart','CartController');
