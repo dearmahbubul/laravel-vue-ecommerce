@@ -14,7 +14,15 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        return view('all-invoice');
+    }
+
+    public function listAll()
+    {
+        $invoices = Order::all();
+        return response([
+            'data' => $invoices,
+        ],Response::HTTP_OK);
     }
 
     /**

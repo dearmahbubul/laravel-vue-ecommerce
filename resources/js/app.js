@@ -72,6 +72,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('home-component', require('./components/Home.vue').default);
 Vue.component('cart-component', require('./components/Cart.vue').default);
 Vue.component('invoice-component', require('./components/Invoice.vue').default);
+Vue.component('all-invoice-component', require('./components/AllInvoice.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
