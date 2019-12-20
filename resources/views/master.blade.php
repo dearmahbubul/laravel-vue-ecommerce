@@ -10,9 +10,10 @@
          @include('layouts.breadcrump')
 
 
-            <router-view></router-view>
-         <vue-progress-bar></vue-progress-bar>
-            <home-component></home-component>
+          <vue-progress-bar></vue-progress-bar>
+          <router-view></router-view>
+
+          @yield('content')
             <!-- //show Now-->
             <!-- footer -->
          @include('layouts.footer')

@@ -49,7 +49,8 @@ Vue.use(VueProgressBar, options)
 
 /*Vue routes*/
 let routes = [
-    { path: '/home', component: require('./components/Home.vue')},
+    { path: '/', component: require('./components/Home.vue')},
+    { path: '/carts', component: require('./components/Cart.vue')},
     { path: '*', component: require('./components/NotFound.vue') }
 ];
 
@@ -69,6 +70,7 @@ const router = new VueRouter({
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('home-component', require('./components/Home.vue').default);
+Vue.component('cart-component', require('./components/Cart.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

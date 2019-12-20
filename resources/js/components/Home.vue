@@ -145,7 +145,7 @@
                 this.$Progress.finish();
             },
             updateCart(rowId){
-                axios.post("cart/"+rowId,{'id':id})
+                axios.put("cart/"+rowId,{'id':rowId})
                 .then(
                     (data) => {
                         this.loadCart();

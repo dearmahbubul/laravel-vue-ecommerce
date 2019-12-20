@@ -10,6 +10,11 @@ use Illuminate\Http\Response;
 
 class CartController extends Controller
 {
+
+    public function getIndex()
+    {
+        return view('cart');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +23,13 @@ class CartController extends Controller
     public function index()
     {
         $cart = Cart::content();
+        $count = $cart->count();
+        $total = Cart::total();
 
         return response([
-            'data' => $cart
+            'data' => $cart,
+            'total_count' => $count,
+            'total_price' => $total
         ], Response::HTTP_OK);
     }
 
