@@ -46,10 +46,6 @@ class InvoiceController extends Controller
         //
     }
 
-    public function viewInvoice($id)
-    {
-        return view('invoice',['orderId'=>$id]);
-    }
     /**
      * Display the specified resource.
      *

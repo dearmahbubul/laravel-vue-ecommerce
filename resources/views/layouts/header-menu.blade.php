@@ -45,9 +45,9 @@
                                 <button type="button" data-toggle="modal" data-target="#userLoginModal"> <span class="far fa-user"></span></button>
                             </li>
                             <li class="fruitscart fruitscart2 cart cart box_1">
-                                <router-link to="/cart/show" class="last">
+                                <router-link to="/carts" class="last">
                                     <span class="fas fa-cart-arrow-down"></span>
-                                    <span class="" style="margin-left: -5px;border: none;">6 item</span>
+                                    <span class="" style="margin-left: -5px;border: none;">.</span>
                                 </router-link>
                             </li>
                         </ul>
@@ -62,13 +62,13 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                 <ul class="navbar-nav ">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
+                        <router-link to="/home" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('all-invoice')}}" class="nav-link">All Invoice</a>
+                        <router-link to="/all-invoice" class="nav-link">All Invoice</router-link>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/carts')}}" class="nav-link">Cart</a>
+                        <router-link to="/carts" class="nav-link">Cart</router-link>
                     </li>
                 </ul>
             </div>

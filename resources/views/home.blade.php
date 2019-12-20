@@ -1,5 +1,5 @@
 @extends('master')
 
 @section('content')
-    <home-component></home-component>
+    <index-component></index-component>
 @endsection

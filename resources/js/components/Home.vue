@@ -94,6 +94,10 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center">
+                        <router-link to="/carts" class="btn btn-outline-success text-center w-50">Cart</router-link>
+                    </div>
                 </div>
             </div>
         </div>

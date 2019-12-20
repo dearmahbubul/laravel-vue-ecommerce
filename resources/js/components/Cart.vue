@@ -54,9 +54,8 @@
                             </ul>
                             <span class="alert-info">Only Cash on Delivery</span>
                             <div class="">
-                                <a class="btn btn-lg btn-warning" style="width: 49%;" href="/">Continue Shopping</a>
-                                <a class="btn btn-lg btn-success w-50" href="/checkout" v-if="!empty">Order Now</a>
-                                <button class="btn btn-lg btn-success w-50" v-if="empty" v-bind:disabled="empty">Order Now</button>
+                                <router-link to="/home" class="btn btn-lg btn-warning" style="width: 49%;">Continue Shopping</router-link>
+                                <button class="btn btn-lg btn-success w-50" v-bind:disabled="empty" @click="orderSubmit()">Order Now</button>
                             </div>
                         </div>
                     </div>
@@ -128,17 +127,24 @@
                             })
                         }
                     )
+            },
+            orderSubmit(){
+                axios.get("checkout")
+                .then(
+                    (data) => {
+                        toast.fire({
+                            icon: 'success',
+                            title: 'You order submitted successfully'
+                        });
+                        console.log(data.data.data);
+                        this.$router.push('invoice/'+data.data.data)
+                    }
+                )
             }
         },
         created(){
             this.$Progress.start();
             this.loadCart();
-            /*Swal.fire({
-                title: 'Success!',
-                text: 'Are you sure to remove',
-                icon: 'info',
-                confirmButtonText: 'Yes'
-            });*/
             this.$Progress.finish()
         }
     }

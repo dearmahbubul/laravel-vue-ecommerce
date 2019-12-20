@@ -10,8 +10,8 @@
          @include('layouts.breadcrump')
 
 
-          <vue-progress-bar></vue-progress-bar>
           <router-view></router-view>
+          <vue-progress-bar></vue-progress-bar>
 
           @yield('content')
             <!-- //show Now-->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,9 @@ class HomeController extends Controller
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', $e->getMessage());
             }
-            return redirect()->route('invoice', ['id' => $order->id]);
+            return response([
+                'data' => $order->id
+            ],Response::HTTP_CREATED);
         }else{
             return redirect()->back()->with('error', 'Your cart is empty');
         }

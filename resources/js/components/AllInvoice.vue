@@ -22,7 +22,7 @@
                                 <th scope="row">{{++index}}</th>
                                 <td>TK.{{invoice.total_price}}</td>
                                 <td>{{invoice.created_at}}</td>
-                                <td><button type="button" class="btn btn-success btn-rounded btn-sm m-0" title="View Invoice" @click="showInvoice(invoice.id)"><i class="fa fa-eye"></i></button></td>
+                                <td><router-link :to="{ path: '/invoice/'+invoice.id}" class="btn btn-success btn-rounded btn-sm m-0" title="View Invoice"><i class="fa fa-eye"></i></router-link></td>
                             </tr>
                             </tbody>
                         </table>

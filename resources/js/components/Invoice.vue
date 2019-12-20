@@ -107,12 +107,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Cart Component mounted.')
-        },
-        props: {
-            orderid: {
-                required: true
-            }
+            console.log('Invoice Component mounted.')
         },
         data() {
             return {
@@ -124,7 +119,7 @@
         },
         methods: {
             loadInvoice(){
-                axios.get('/invoice/'+this.orderid).then(
+                axios.get('/get-invoice/'+this.$route.params.id).then(
                     (data) => {
                         this.order = data.data.order;
                         this.order_info = data.data.order_info;

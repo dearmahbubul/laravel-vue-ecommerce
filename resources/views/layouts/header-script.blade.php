@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{URL::asset('css/app.css')}}">
     <!--booststrap-->
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" media="all">

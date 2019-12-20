@@ -7,7 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import VueRouter from 'vue-router'
+Vue.use(VueRouter);
 import Swal from 'sweetalert2'
 window.Swal = Swal;
 const toast = Swal.mixin({
@@ -24,9 +25,6 @@ const toast = Swal.mixin({
 window.toast = toast;
 /*End toast or sweetalert2*/
 window.Fire = new Vue();
-
-import VueRouter from 'vue-router'
-Vue.use(VueRouter);
 /*----Start vue-progressbar*/
 import VueProgressBar from 'vue-progressbar'
 /*Progress bar registration*/
@@ -45,16 +43,22 @@ const options = {
 };
 
 Vue.use(VueProgressBar, options)
+//Vue.component('all-invoice-component', require('./components/AllInvoice.vue').default);
 /*End progress bar*/
-
+import Home from './components/Home.vue';
+import AllInvoice from './components/AllInvoice.vue';
+import Cart from './components/Cart.vue';
+import Invoice from './components/Invoice.vue';
 /*Vue routes*/
 let routes = [
-    { path: '/', component: require('./components/Home.vue')},
-    { path: '/carts', component: require('./components/Cart.vue')},
-    { path: '*', component: require('./components/NotFound.vue') }
+    { path: '/home', component: Home,name:'Home'},
+    { path: '/carts', component: Cart,name:'Cart'},
+    { path: '/all-invoice', component: AllInvoice,name:'AllInvoice'},
+    { path: '/invoice/:id', component: Invoice, name: 'Invoice'}
 ];
 
 const router = new VueRouter({
+    mode: 'history',
     routes // short for `routes: routes`
 });
 /**
@@ -67,12 +71,14 @@ const router = new VueRouter({
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('home-component', require('./components/Home.vue').default);
-Vue.component('cart-component', require('./components/Cart.vue').default);
-Vue.component('invoice-component', require('./components/Invoice.vue').default);
-Vue.component('all-invoice-component', require('./components/AllInvoice.vue').default);
+//console.log('app'+window.location.pathname);
+Vue.component('index-component', require('./components/IndexComponent.vue').default);
+/*Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('home-component', require('./components/Home.vue'));
+Vue.component('cart-component', require('./components/Cart.vue'));
+Vue.component('invoice-component', require('./components/Invoice.vue'));
+Vue.component('all-invoice-component', require('./components/AllInvoice.vue'));
+Vue.component('list-invoice-component', require('./components/InvoiceComponent.vue'));*/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

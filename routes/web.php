@@ -13,10 +13,7 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/checkout', 'HomeController@checkout');
-Route::get('/all-invoice', 'InvoiceController@index')->name('all-invoice');
 Route::get('/all-invoice-list', 'InvoiceController@listAll')->name('all-invoice-list');
-Route::get('/order-invoice/{orderId}', 'InvoiceController@viewInvoice')->name('invoice');
-Route::get('/invoice/{orderId}', 'InvoiceController@show')->name('invoice-view');
-Route::get('/carts', 'CartController@getIndex');
+Route::get('/get-invoice/{id}', 'InvoiceController@show')->name('invoice');
 Route::resource('/cart','CartController');
-//Route::get('{path}',"HomeController@index")->where('path', '([A-z\d-\/_.]+)?');
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');
