@@ -36,6 +36,10 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr v-if="cartItems.length == 0" class="rem1 text-center border-bottom">
+                                <td colspan="5">Your Cart is Empty</td>
+                                <div class="clearfix"></div>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -51,7 +55,8 @@
                             <span class="alert-info">Only Cash on Delivery</span>
                             <div class="">
                                 <a class="btn btn-lg btn-warning" style="width: 49%;" href="/">Continue Shopping</a>
-                                <a class="btn btn-lg btn-success w-50" href="/checkout">Order Now</a>
+                                <a class="btn btn-lg btn-success w-50" href="/checkout" v-if="!empty">Order Now</a>
+                                <button class="btn btn-lg btn-success w-50" v-if="empty" v-bind:disabled="empty">Order Now</button>
                             </div>
                         </div>
                     </div>
@@ -78,7 +83,8 @@
             return {
                 cartItems:[],
                 totalCount:'',
-                totalPrice:''
+                totalPrice:'',
+                empty: false
             }
         },
         /*computed: {
@@ -92,6 +98,9 @@
                     (data) => {
                         this.cartItems = data.data.data;
                         this.totalCount = data.data.total_count;
+                        if(this.totalCount == 0){
+                            this.empty = true;
+                        }
                         this.totalPrice = data.data.total_price
                     }
                 );

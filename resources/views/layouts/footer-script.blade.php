@@ -8,10 +8,10 @@
 ?>
 
 <!--js working-->
-<script src="{{URL::asset("js/jquery-3.4.1.min.js")}}"></script>
+<script src="{{URL::asset('js/jquery-3.4.1.min.js')}}"></script>
 <!--//js working-->
 <!--bootstrap working-->
-<script src="{{URL::asset("js/bootstrap.min.js")}}"></script>
+<script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
 {{--<!-- easy-responsive-tabs -->
 <script src="js/easy-responsive-tabs.js"></script>
 <script>
@@ -93,4 +93,5 @@
         }
     );
 </script>--}}
-<script src="/js/app.js"></script>
+
+<script src="{{URL::asset('js/app.js')}}"></script>

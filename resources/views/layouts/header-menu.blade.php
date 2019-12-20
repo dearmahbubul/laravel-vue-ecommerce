@@ -61,14 +61,11 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                 <ul class="navbar-nav ">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="index.blade.php" class="nav-link">Shop Now</a>
+                        <a href="{{url('all-invoice')}}" class="nav-link">All Invoice</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{url('/carts')}}" class="nav-link">Cart</a>

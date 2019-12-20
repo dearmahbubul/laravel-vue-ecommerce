@@ -71,6 +71,7 @@ const router = new VueRouter({
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('home-component', require('./components/Home.vue').default);
 Vue.component('cart-component', require('./components/Cart.vue').default);
+Vue.component('invoice-component', require('./components/Invoice.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
