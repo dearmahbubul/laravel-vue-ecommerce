@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('user_id')->default(1)->unsigned();
             $table->foreign('user_id')
                 ->references('id')->on('users');
-            $table->text('order_info');
+            $table->json('order_info');
             $table->text('total_price');
             $table->timestamps();
         });

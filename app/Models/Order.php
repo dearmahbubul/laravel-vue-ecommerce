@@ -8,7 +8,7 @@ class Order extends Model
 {
     protected $fillable = ['user_id','order_info','total_price'];
 
-    /*protected $casts = [
+    protected $casts = [
         'order_info'
-    ];*/
+    ];
 }
